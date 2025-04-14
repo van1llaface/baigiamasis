@@ -1,14 +1,13 @@
-name: Terraform Deployment
+name: Destroy terraform resources
 
 on:
   push:
     branches:
-      - master
+      - master  # Changed to master branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -18,14 +17,15 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./terraform  # Changed folder to terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        working-directory: ./terraform  # Changed folder to terraform
 
   cleanup:
     runs-on: ubuntu-latest
     needs: deploy
-    if: ${{ github.event.inputs.manual_cleanup == 'true' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -35,7 +35,8 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./terraform  # Changed folder to terraform
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
-
+        working-directory: ./terraform  # Changed folder to terraform
