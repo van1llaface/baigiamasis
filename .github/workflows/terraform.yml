@@ -3,7 +3,7 @@ name: Terraform AWS ECR Creation
 on:
   push:
     branches:
-      - master  # Change this if you are using a different branch
+      - master
 
 jobs:
   terraform:
@@ -18,7 +18,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.3.0  # Specify your Terraform version
+          terraform_version: 1.11.2  # Specify your Terraform version
 
       # Step 3: Configure AWS credentials
       - name: Set up AWS credentials
@@ -38,4 +38,6 @@ jobs:
 
       # Step 6: Output the ECR repository URL
       - name: Output ECR URL
-        run: echo "ECR Repository URL: $(terraform output ecr_repository_url)"
+        run: |
+            ECR_URL=$(terraform output -raw ecr_repository_url)
+            echo "ECR Repository URL: $ECR_URL"
