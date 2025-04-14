@@ -11,9 +11,7 @@ lerna-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 grade.txt
-#terraform
-terraform
-terraform.tfstate
+
 
 # Runtime data
 pids

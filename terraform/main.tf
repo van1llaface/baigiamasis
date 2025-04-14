@@ -1,0 +1,64 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.38"
+    }
+  }
+  required_version = ">= 1.2.0"
+}
+provider "aws" {
+  region = "eu-north-1"
+
+}
+module "vpc" {
+  source         = "terraform-aws-modules/vpc/aws"
+  name           = "TODO-vpc"
+  cidr           = "10.0.0.0/16"
+  azs            = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
+  public_subnets = ["10.0.101.0/24"]
+}
+module "ec2" {
+  source             = "./app_server"
+  sg_from_module     = [module.vpc.default_security_group_id]
+  subnet_from_module = module.vpc.public_subnets[0]
+}
+provider "aws" {
+  region = "us-west-2"  # Update the region if needed
+}
+
+resource "aws_db_instance" "mydb" {
+  allocated_storage    = 20
+  storage_type         = "gp2"
+  engine               = "mysql"
+  engine_version       = "8.0"  # Choose the MySQL version
+  instance_class       = "db.t3.micro"
+  db_name              = "baigiasmasis_db"
+  username             = var.db_username
+  password             = var.db_password
+  parameter_group_name = "default.mysql8.0"
+  skip_final_snapshot  = true
+
+  # VPC and Security Group configurations for remote access
+  vpc_security_group_ids = [aws_security_group.sg.id]
+}
+
+# Output the DB connection string
+output "db_connect_string" {
+  description = "MySQL database connection string"
+  value = "Server=${aws_db_instance.mydb.address}; Database=mydb; Uid=${var.db_username}; Pwd=${var.db_password}"
+  sensitive = true
+}
+
+variable "db_username" {
+  description = "Database Username"
+  default     = "adminas"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Database Password"
+  default     = "AdminAdmin1234."
+  type        = string
+  sensitive   = true
+}
