@@ -22,12 +22,12 @@ jobs:
         with:
           terraform_version: 'latest'
 
-      - name: Terraform Plan
-        run: terraform plan -destroy -out=tfplan
-        working-directory: ./terraform
-
       - name: Terraform Init
         run: terraform init
+        working-directory: ./terraform
+
+      - name: Terraform Plan
+        run: terraform plan -destroy -out=tfplan
         working-directory: ./terraform
 
       - name: Terraform Destroy
