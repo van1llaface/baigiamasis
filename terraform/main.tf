@@ -12,6 +12,15 @@ provider "aws" {
   region = "eu-north-1"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "baigiamasis-s3"
+    key    = "terraform/terraform.tfstate"
+    region = "eu-north-1"
+  }
+}
+
+
 module "vpc" {
   source         = "terraform-aws-modules/vpc/aws"
   name           = "TODO-vpc"
