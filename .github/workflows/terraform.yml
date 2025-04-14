@@ -1,6 +1,7 @@
 name: Terraform AWS ECR Creation
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
