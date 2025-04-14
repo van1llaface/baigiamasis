@@ -21,7 +21,7 @@ module "vpc" {
 }
 
 resource "aws_security_group" "sg" {
-  name        = "my_security_group"
+  name        = "my_security_group1"
   description = "Allow inbound traffic on port 3306 (MySQL) and port 22 (SSH)"
   
   ingress {
