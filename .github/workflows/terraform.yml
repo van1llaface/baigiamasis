@@ -34,7 +34,9 @@ jobs:
 
       # Step 5: Apply Terraform Configuration to create resources
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+            cd terraform
+            terraform apply -auto-approve
 
       # Step 6: Output the ECR repository URL
       - name: Output ECR URL
