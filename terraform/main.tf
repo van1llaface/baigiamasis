@@ -6,7 +6,7 @@ resource "aws_instance" "example" {
   ami           = "ami-0274f4b62b6ae3bd5" # Amazon Linux 2 AMI (example)
   instance_type = "t3.micro"
  
-  user_data = file("./terraform/user_data.sh")
+  user_data = file("user_data.sh")
  
   tags = {
     Name = "Terraform-EC2-With-UserData"
