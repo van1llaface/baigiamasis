@@ -1,15 +1,10 @@
 name: Terraform EC2 Deploy
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
   workflow_dispatch:  # Manual trigger only
-
-defaults:
-    run:
-      working-directory: ./terraform
+  push:
+    branches:
+      - master
 
 jobs:
   terraform:
@@ -23,7 +18,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: latest
+          terraform_version: latest  # or specify a version like '1.0.0'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -33,16 +28,20 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: List files in terraform directory
-        run: ls -l ./terraform
-        
+        run: ls -l ./terraform  # This will confirm if the terraform directory exists
+
       - name: Terraform Init
         run: terraform init
+        working-directory: ./terraform  # Correct the path if needed
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./terraform
 
       - name: Terraform Plan
         run: terraform plan
+        working-directory: ./terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        working-directory: ./terraform
