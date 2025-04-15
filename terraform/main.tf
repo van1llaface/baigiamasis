@@ -1,17 +1,52 @@
 provider "aws" {
   region = "eu-north-1"
 }
- 
+
+# Create a VPC
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
+# Create a public subnet
+resource "aws_subnet" "main" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "eu-north-1a"
+}
+
+# Create a security group to allow all traffic (insecure, for dev/testing)
+resource "aws_security_group" "allow_web" {
+  name        = "allow_all"
+  description = "Allow all inbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Launch EC2 instance
 resource "aws_instance" "example" {
-  ami           = "ami-0274f4b62b6ae3bd5" # Amazon Linux 2 AMI (example)
-  instance_type = "t3.micro"
-  vpc_security_group_ids = [aws_security_group.allow_web.id]
+  ami                    = "ami-0274f4b62b6ae3bd5" # Replace with valid AMI
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.main.id
- 
-  user_data = file("user_data.sh")
- 
+  vpc_security_group_ids = [aws_security_group.allow_web.id]
+
+  user_data = file("${path.module}/user_data.sh")
+
   tags = {
-    Name = "Baigiamasis-EC2-TODO"
+    Name = "TerraformEC2Instance"
   }
 }
 
