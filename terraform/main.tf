@@ -1,55 +1,16 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.38"
-    }
-  }
-  required_version = ">= 1.2.0"
-}
-
 provider "aws" {
   region = "eu-north-1"
 }
-
-module "vpc" {
-  source         = "terraform-aws-modules/vpc/aws"
-  name           = "TODO-vpc"
-  cidr           = "10.0.0.0/16"
-  azs            = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
-  public_subnets = ["10.0.101.0/24"]
-}
-
-resource "aws_security_group" "sg" {
-  name        = "my_security_group12"
-  description = "Allow inbound traffic on port 3306 (MySQL) and port 22 (SSH)"
-  
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+ 
+resource "aws_instance" "example" {
+  ami           = "ami-0274f4b62b6ae3bd5" # Amazon Linux 2 AMI (example)
+  instance_type = "t3.micro"
+ 
+  user_data = file("user-data.sh")
+ 
+  tags = {
+    Name = "Terraform-EC2-With-UserData"
   }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-module "ec2" {
-  source             = "./app_server"
-  sg_from_module     = [module.vpc.default_security_group_id]
-  subnet_from_module = module.vpc.public_subnets[0]
 }
 
 # resource "aws_db_instance" "mydb" {
