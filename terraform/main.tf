@@ -9,7 +9,7 @@ resource "aws_instance" "example" {
   user_data = file("user_data.sh")
  
   tags = {
-    Name = "Terraform-EC2-With-UserData"
+    Name = "Baigiamasis-EC2-TODO"
   }
 }
 
