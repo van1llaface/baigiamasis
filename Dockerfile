@@ -2,6 +2,7 @@ FROM node:20 AS base
 WORKDIR /usr/local/app
 FROM base AS client-base
 COPY client/package.json client/yarn.lock ./
+RUN yarn cache clean --force
 RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
     yarn install
 COPY client/.eslintrc.cjs client/index.html client/vite.config.js ./
