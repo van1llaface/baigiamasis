@@ -11,4 +11,4 @@ git clone https://github.com/van1llaface/baigiamasis.git
 cd baigiamasis
 
 sudo docker build -t baigiamasis-app .
-sudo docker run -d -p 80:3000 baigiamasis-app
+sudo docker run -d -p 3000:3000 baigiamasis-app
