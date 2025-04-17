@@ -5,6 +5,9 @@ provider "aws" {
 # Create a VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "BaigiasmasisVPC"
+  }
 }
 
 # Create a public subnet
@@ -46,7 +49,7 @@ resource "aws_instance" "example" {
   user_data = file("${path.module}/user_data.sh")
 
   tags = {
-    Name = "TerraformEC2Instance"
+    Name = "baigiamasis_ec2"
   }
 }
 
