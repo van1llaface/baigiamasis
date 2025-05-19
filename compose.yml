@@ -83,8 +83,6 @@ services:
     labels:
       traefik.http.routers.backend.rule: PathPrefix(`/api`)
       traefik.http.services.backend.loadbalancer.server.port: 3000
-    ports:
-      - 3000:3000
 
   ###################################################
   # Service: client
@@ -140,7 +138,6 @@ services:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: todos
 
-
   ###################################################
   # Service: phpmyadmin
   #
@@ -165,8 +162,6 @@ services:
     labels:
       traefik.http.routers.phpmyadmin.rule: PathPrefix(`/db`)
       traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
-    ports:
-      - 8080:80
 
 ###################################################
 # Volumes
