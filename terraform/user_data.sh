@@ -13,4 +13,4 @@ cd /home/ec2-user
 git clone https://github.com/van1llaface/baigiamasis.git
 cd baigiamasis
 
-docker compose up -d
+docker-compose up -d
