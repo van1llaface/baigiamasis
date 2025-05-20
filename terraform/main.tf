@@ -28,7 +28,7 @@ resource "aws_instance" "example" {
   ami                    = "ami-02ec57994fa0fae21" # Replace with valid AMI
   instance_type          = "t3.micro"
   # vpc_security_group_ids = [aws_security_group.allow_web.id]
-  vpc_security_group_ids = "sg-092e30ec949deb682"
+  vpc_security_group_ids = sg-092e30ec949deb682
 
   key_name      = "baigiamasis-pem"
 
