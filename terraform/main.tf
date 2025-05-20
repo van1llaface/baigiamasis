@@ -32,7 +32,7 @@ resource "aws_instance" "example" {
 
   key_name      = "baigiamasis-pem"
 
-  user_data = file("${path.module}/user_data.sh")
+  # user_data = file("${path.module}/user_data.sh")
 
   tags = {
     Name = "baigiamasis_ec2"
