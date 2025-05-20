@@ -133,13 +133,12 @@ services:
   mysql:
     image: mysql:8.0
     container_name: baigiamasis-mysql
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: todos
-    volumes:
-      - mysql-data:/var/lib/mysql
     restart: always
-
 
   ###################################################
   # Service: phpmyadmin
@@ -174,4 +173,4 @@ services:
 # hence the lack of any configuration for the volume.
 ###################################################
 volumes:
-  mysql-data:
+  todo-mysql-data:
