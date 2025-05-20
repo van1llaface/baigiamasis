@@ -46,7 +46,7 @@ resource "aws_instance" "example" {
   subnet_id              = aws_subnet.main.id
   vpc_security_group_ids = [aws_security_group.allow_web.id]
 
-  key_name      = "antro-blyno-key"
+  key_name      = "baigiamasis-pem"
 
   user_data = file("${path.module}/user_data.sh")
 
