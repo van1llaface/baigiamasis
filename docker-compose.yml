@@ -82,8 +82,9 @@ services:
         - path: ./backend/package.json
           action: rebuild
     labels:
-      traefik.http.routers.backend.rule: Host(`localhost`) && PathPrefix(`/api`)
+      traefik.http.routers.backend.rule: PathPrefix(`/api`)
       traefik.http.services.backend.loadbalancer.server.port: 3000
+
 
   ###################################################
   # Service: client
@@ -112,8 +113,9 @@ services:
         - path: ./client/package.json
           action: rebuild
     labels:
-      traefik.http.routers.client.rule: Host(`localhost`)
+      traefik.http.routers.client.rule: PathPrefix(`/`)
       traefik.http.services.client.loadbalancer.server.port: 5173
+
 
 
   ###################################################
