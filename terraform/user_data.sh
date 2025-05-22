@@ -21,5 +21,5 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 # Clone your repository
-git clone https://van1llaface:Vilnius456.github.com/van1llaface/baigiamasis.git
+git clone https://github.com/van1llaface/baigiamasis.git
 sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/docker-compose.yml up -d

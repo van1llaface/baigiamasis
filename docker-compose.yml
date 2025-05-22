@@ -138,7 +138,8 @@ services:
     image: mysql:8.0
     volumes:
       - todo-mysql-data:/var/lib/mysql
-    environment: 
+    environment:
+      MYSQL_HOST: mysql 
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: todos
 
