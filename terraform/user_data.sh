@@ -20,7 +20,6 @@ sudo systemctl enable docker
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-sudo curl -L https://github.com/van1llaface/baigiamasis/archive/refs/heads/main.tar.gz -O baigiamasis.tar.gz
-sudo tar -xzf baigiamasis.tar.gz
-sudo mv baigiamasis-main baigiamasis
+# Clone your repository
+git clone https://github.com/van1llaface/baigiamasis.git
 sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/docker-compose.yml up -d
