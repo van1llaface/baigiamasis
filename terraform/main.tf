@@ -2,27 +2,6 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-# Create a security group to allow all traffic (insecure, for dev/testing)
-# resource "aws_security_group" "allow_web" {
-#   name        = "allow_all"
-#   description = "Allow all inbound traffic"
-#   vpc_id      = "vpc-03d1810d15c24c49b"
-
-#   ingress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-# }
-
 # Launch EC2 instance
 resource "aws_instance" "example" {
   ami                    = "ami-02ec57994fa0fae21"  #"ami-00f34bf9aeacdf007" Replace with valid AMI
@@ -39,3 +18,48 @@ resource "aws_instance" "example" {
   }
 }
 
+
+variable "my_ip" {
+  default = "88.118.188.189/32"
+}
+
+resource "aws_security_group" "only_my_ip" {
+  name        = "only-my-ip-access"
+  description = "Allow access only from my IP"
+
+  ingress {
+    description = "SSH from my IP"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.my_ip]
+  }
+
+  ingress {
+    description = "HTTP from my IP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.my_ip]
+  }
+
+  ingress {
+    description = "HTTPS from my IP"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.my_ip]
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "OnlyMyIPSecurityGroup"
+  }
+}
