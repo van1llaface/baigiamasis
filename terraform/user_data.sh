@@ -24,4 +24,4 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo -u ec2-user git clone https://github.com/van1llaface/baigiamasis.git
 
 # Start containers using docker-compose
-sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/compose.yml up -d
+sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/compose.yml up
