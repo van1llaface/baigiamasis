@@ -20,9 +20,10 @@ sudo systemctl enable docker
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-sudo cd /home/ec2-user
 # Clone your repository
-sudo -u ec2-user git clone https://github.com/van1llaface/baigiamasis.git
+sudo -u ec2-user git clone https://github.com/van1llaface/baigiamasis.git /home/ec2-user/baigiamasis
+sudo chown -R ec2-user:ec2-user /home/ec2-user/baigiamasis
+
 
 # Start containers using docker-compose
-sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/compose.yml up
+sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/compose.yml up -d
