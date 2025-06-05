@@ -1,5 +1,5 @@
 #!/bin/bash
-# exec > >(tee /var/log/user-data.log | logger -t user-data -s 2>/dev/console) 2>&1
+exec > >(tee /var/log/user-data.log | logger -t user-data -s 2>/dev/console) 2>&1
 
 # Update the system
 sudo yum update -y
@@ -17,9 +17,12 @@ sudo usermod -aG docker ec2-user
 sudo systemctl enable docker
 
 # Install Docker Compose (v2+ compatible)
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo yum install docker-compose-plugin -y
+# sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
+sleep 10
+
 # Clone your repository
-git clone https://github.com/van1llaface/baigiamasis.git
+sudo -u ec2-user  git clone https://github.com/van1llaface/baigiamasis.git
 sudo /usr/local/bin/docker-compose -f /home/ec2-user/baigiamasis/compose.yml up -d
