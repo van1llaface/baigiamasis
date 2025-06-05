@@ -17,11 +17,8 @@ sudo usermod -aG docker ec2-user
 sudo systemctl enable docker
 
 # Install Docker Compose (v2+ compatible)
-sudo yum install docker-compose-plugin -y
-# sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-
-sleep 10
 
 # Clone your repository
 sudo -u ec2-user git clone https://github.com/van1llaface/baigiamasis.git
