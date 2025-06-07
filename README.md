@@ -5,9 +5,7 @@ the current Docker best practices, ranging from the Compose file, to the
 Dockerfile, to CI (using GitHub Actions), and running tests. It's intended to 
 be a well-documented to ensure anyone can come in and easily learn.
 
-## Application architecture
 
-![image](https://github.com/docker/getting-started-todo-app/assets/313480/c128b8e4-366f-4b6f-ad73-08e6652b7c4d)
 
 
 This sample application is a simple React frontend that receives data from a
@@ -34,22 +32,7 @@ cd getting-started-todo-app
 docker compose up -d
 ```
 
-You'll see several container images get downloaded from Docker Hub and, after a
-moment, the application will be up and running! No need to install or configure
-anything on your machine!
 
-Simply open to [http://localhost](http://localhost) to see the app up and running!
-
-Any changes made to either the backend or frontend should be seen immediately
-without needing to rebuild or restart the containers.
-
-To help with the database, the development stack also includes phpMyAdmin, which
-can be access at [http://db.localhost](http://db.localhost) (most browsers will 
-resolve `*.localhost` correctly, so no hosts file changes should be required).
-
-### Tearing it down
-
-When you're done, simply remove the containers by running the following command:
 
 ```
 docker compose down
